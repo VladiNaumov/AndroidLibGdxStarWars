@@ -24,7 +24,7 @@ public class StarGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		x+=5; y+=5;
+		x+=1; y+=1;
 		ScreenUtils.clear(Color.BROWN);
 		batch.begin();
 		batch.draw(img, x, y);
