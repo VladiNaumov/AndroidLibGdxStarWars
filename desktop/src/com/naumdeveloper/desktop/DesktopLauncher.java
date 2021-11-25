@@ -1,4 +1,4 @@
-package ru.gb.desktop;
+package com.naumdeveloper.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
