@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.sprite.Sprite;
 
+
 public class Background extends Sprite {
 
     public Background(Texture texture) {

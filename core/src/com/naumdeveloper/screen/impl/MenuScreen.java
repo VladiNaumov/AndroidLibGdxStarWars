@@ -1,24 +1,34 @@
 package com.naumdeveloper.screen.impl;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.screen.BaseScreen;
-import com.naumdeveloper.sprite.Logo;
 import com.naumdeveloper.sprite.impl.Background;
-
+import com.naumdeveloper.sprite.impl.ButtonExit;
+import com.naumdeveloper.sprite.impl.ButtonPlay;
+import com.naumdeveloper.sprite.impl.Star;
 
 public class MenuScreen extends BaseScreen {
 
-    private static final float V_LEN = 1.5f;
+    private static final int STAR_COUNT = 256;
+
+    private final Game game;
 
     private Texture bg;
-    private Texture img;
-    private Vector2 pos;
-    private Logo logo;
-
     private Background background;
+
+    private TextureAtlas atlas;
+    private Star[] stars;
+    private ButtonExit buttonExit;
+    private ButtonPlay buttonPlay;
+
+    public MenuScreen(Game game) {
+        this.game = game;
+    }
 
     @Override
     public void show() {
@@ -26,9 +36,25 @@ public class MenuScreen extends BaseScreen {
         bg = new Texture("textures/bg.png");
         background = new Background(bg);
 
-        img = new Texture("ball.png");
-        logo = new Logo(img);
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
 
+        stars = new Star[STAR_COUNT];
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = new Star(atlas);
+        }
+        buttonExit = new ButtonExit(atlas);
+        buttonPlay = new ButtonPlay(atlas, game);
+    }
+
+    @Override
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        background.resize(worldBounds);
+        for (Star star : stars) {
+            star.resize(worldBounds);
+        }
+        buttonExit.resize(worldBounds);
+        buttonPlay.resize(worldBounds);
     }
 
     @Override
@@ -42,31 +68,40 @@ public class MenuScreen extends BaseScreen {
     public void dispose() {
         super.dispose();
         bg.dispose();
-        img.dispose();
+        atlas.dispose();
     }
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        logo.touchDown(touch, pointer, button);
+        buttonExit.touchDown(touch, pointer, button);
+        buttonPlay.touchDown(touch, pointer, button);
         return false;
     }
 
     @Override
-    public void resize(Rect worldBounds) {
-        super.resize(worldBounds);
-        background.resize(worldBounds);
-        logo.resize(worldBounds);
+    public boolean touchUp(Vector2 touch, int pointer, int button) {
+        buttonExit.touchUp(touch, pointer, button);
+        buttonPlay.touchUp(touch, pointer, button);
+        return false;
     }
 
-    private void update(float delta){
-        logo.update(delta);
+    private void update(float delta) {
+        for (Star star : stars) {
+            star.update(delta);
+        }
     }
 
-    private void draw(){
+    private void draw() {
         batch.begin();
+//        batch.setColor(1f, 1f, 1f, 1f);
         background.draw(batch);
-        logo.draw(batch);
+        for (Star star : stars) {
+//            batch.setColor(Color.YELLOW);
+            star.draw(batch);
+//            batch.setColor(Color.CLEAR);
+        }
+        buttonExit.draw(batch);
+        buttonPlay.draw(batch);
         batch.end();
     }
 }
-
