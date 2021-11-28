@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
+import com.naumdeveloper.base.BaseScreen;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.sprite.Background;
 import com.naumdeveloper.sprite.ButtonExit;

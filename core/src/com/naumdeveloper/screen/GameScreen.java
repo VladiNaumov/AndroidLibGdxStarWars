@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.screen.BaseScreen;
+import com.naumdeveloper.base.BaseScreen;
 import com.naumdeveloper.sprite.Background;
 
 

@@ -3,9 +3,10 @@ package com.naumdeveloper.sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.naumdeveloper.base.Sprite;
 import com.naumdeveloper.math.Rect;
 
-public class DemoShip extends Sprite{
+public class DemoShip extends Sprite {
 
     private final Vector2 v;
 

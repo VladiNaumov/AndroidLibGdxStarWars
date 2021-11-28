@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.sprite.Sprite;
+import com.naumdeveloper.base.Sprite;
 
 public class Background extends Sprite {
 

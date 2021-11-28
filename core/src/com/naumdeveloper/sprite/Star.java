@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.sprite.Sprite;
+import com.naumdeveloper.base.Sprite;
 
 public class Star extends Sprite {
 
