@@ -1,4 +1,4 @@
-package com.naumdeveloper.sprite.impl;
+package com.naumdeveloper.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;

@@ -1,4 +1,4 @@
-package com.naumdeveloper.screen.impl;
+package com.naumdeveloper.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,11 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.screen.BaseScreen;
-import com.naumdeveloper.sprite.impl.Background;
-import com.naumdeveloper.sprite.impl.ButtonExit;
-import com.naumdeveloper.sprite.impl.ButtonPlay;
-import com.naumdeveloper.sprite.impl.Star;
+import com.naumdeveloper.sprite.Background;
+import com.naumdeveloper.sprite.ButtonExit;
+import com.naumdeveloper.sprite.ButtonPlay;
+import com.naumdeveloper.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
 

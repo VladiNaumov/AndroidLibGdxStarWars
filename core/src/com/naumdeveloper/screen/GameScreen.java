@@ -1,11 +1,11 @@
-package com.naumdeveloper.screen.impl;
+package com.naumdeveloper.screen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.screen.BaseScreen;
-import com.naumdeveloper.sprite.impl.Background;
+import com.naumdeveloper.sprite.Background;
 
 
 public class GameScreen extends BaseScreen {
