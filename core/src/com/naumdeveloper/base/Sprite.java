@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.util.Regions;
 
-public class Sprite extends Rect {
+public abstract class Sprite extends Rect {
 
     protected float angle;
     protected float scale = 1f;
