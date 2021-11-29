@@ -1,4 +1,4 @@
-package com.naumdeveloper.sprite;
+package com.naumdeveloper.base;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

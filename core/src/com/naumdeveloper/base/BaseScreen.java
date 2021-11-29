@@ -1,4 +1,4 @@
-package com.naumdeveloper.screen;
+package com.naumdeveloper.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;

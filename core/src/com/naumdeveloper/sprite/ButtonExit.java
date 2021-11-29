@@ -1,10 +1,10 @@
-package com.naumdeveloper.sprite.impl;
+package com.naumdeveloper.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.sprite.BaseButton;
+import com.naumdeveloper.base.BaseButton;
 
 public class ButtonExit extends BaseButton {
 
