@@ -6,24 +6,33 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.base.Sprite;
 import com.naumdeveloper.math.Rect;
 
-public class DemoShip extends Sprite {
+public class Chip extends Sprite {
 
     private final Vector2 v;
 
     private final Vector2 touch;
+
+    // скорость движения объекта
     private static final float V_LEN = 0.01f;
 
-    public DemoShip(Texture texture) {
+    // размер объкта
+    private static final float HEIGHT = 0.15f;
+
+
+    public Chip(Texture texture) {
         super(new TextureRegion(texture));
         v = new Vector2();
         touch = new Vector2();
     }
 
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
-        setHeightProportion(0.3f);
+        // размер объкта
+        setHeightProportion(HEIGHT);
     }
 
+    // движение объекта
     @Override
     public void update(float delta) {
         if(touch.dst(pos) > V_LEN){
@@ -33,6 +42,7 @@ public class DemoShip extends Sprite {
         }
     }
 
+    // передача событий
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         this.touch.set(touch);
