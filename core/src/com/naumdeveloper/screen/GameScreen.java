@@ -1,6 +1,5 @@
 package com.naumdeveloper.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -14,22 +13,19 @@ import com.naumdeveloper.sprite.Star;
 
 public class GameScreen extends BaseScreen {
 
-
     private Texture bg;
     private Texture img;
 
-
-    private Chip logo;
+    private Chip chip;
 
     private Background background;
 
-
     private static final int STAR_COUNT = 256;
-   // private final Game game;
 
     private TextureAtlas atlas;
     private Star[] stars;
 
+    //
     @Override
     public void show() {
         super.show();
@@ -37,11 +33,9 @@ public class GameScreen extends BaseScreen {
         background = new Background(bg);
 
         img = new Texture("textures/chip.png");
-        logo = new Chip(img);
+        chip = new Chip(img);
 
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
-
-
 
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
@@ -50,6 +44,7 @@ public class GameScreen extends BaseScreen {
 
     }
 
+    //
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -57,6 +52,7 @@ public class GameScreen extends BaseScreen {
         draw();
     }
 
+    //
     @Override
     public void dispose() {
         super.dispose();
@@ -65,25 +61,30 @@ public class GameScreen extends BaseScreen {
         atlas.dispose();
     }
 
+    // передача событий
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        logo.touchDown(touch, pointer, button);
+        chip.touchDown(touch, pointer, button);
         return false;
     }
 
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        logo.resize(worldBounds);
+
+        // размер объкта
+        chip.resize(worldBounds);
 
         for (Star star : stars) {
             star.resize(worldBounds);
         }
     }
 
+    // движение объекта
     private void update(float delta){
-        logo.update(delta);
+        chip.update(delta);
         for (Star star : stars) {
             star.update(delta);
         }
@@ -93,11 +94,9 @@ public class GameScreen extends BaseScreen {
         batch.begin();
         background.draw(batch);
         for (Star star : stars) {
-
             star.draw(batch);
-
         }
-        logo.draw(batch);
+        chip.draw(batch);
         batch.end();
     }
 
