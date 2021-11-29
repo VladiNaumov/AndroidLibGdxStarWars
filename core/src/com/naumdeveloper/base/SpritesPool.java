@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.naumdeveloper.base.Sprite;
 
 public abstract class SpritesPool<T extends Sprite> {
 
