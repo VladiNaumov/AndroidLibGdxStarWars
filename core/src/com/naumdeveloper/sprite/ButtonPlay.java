@@ -30,5 +30,5 @@ public class ButtonPlay extends BaseButton {
     @Override
     public void action() {
         game.setScreen(new GameScreen());
-    }
+            }
 }

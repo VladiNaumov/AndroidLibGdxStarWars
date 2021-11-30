@@ -4,25 +4,33 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.naumdeveloper.base.Sprite;
+import com.naumdeveloper.base.BaseSprite;
 import com.naumdeveloper.math.Rect;
 
-public class Ship extends Sprite {
 
-    // размер объeта
+
+public class Ship extends BaseSprite {
+
+    // размер объекта
     private static final float HEIGHT = 0.15f;
-    //
+
+    // отступ от нижнего края
     private static final float BOTTOM_MARGIN = 0.05f;
+
     //
     private static final int INVALID_POINTER = -1;
 
+    //вектор скорости (для движения нашего карабля)
     private final Vector2 v;
+
+    //Вектор направления объекта
     private final Vector2 v0;
 
     private final BulletPool bulletPool;
     private final TextureRegion bulletRegion;
     private final Vector2 bulletV;
     private final float bulletHeight;
+
     private final int damage;
 
     private Rect worldBounds;
@@ -35,8 +43,11 @@ public class Ship extends Sprite {
 
 
 
+    // данный конструктор работает с атлосом текстур
     public Ship(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
+
+
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0f);
         this.bulletPool = bulletPool;
@@ -50,8 +61,10 @@ public class Ship extends Sprite {
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
+
         // размер объeкта
         setHeightProportion(HEIGHT);
+
         setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
     }
 
@@ -76,7 +89,7 @@ public class Ship extends Sprite {
         }
     }
 
-    // передача событий
+    // передача событий нажатия на экран (клавиатуру)
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         if (touch.x < worldBounds.pos.x) {
@@ -115,6 +128,7 @@ public class Ship extends Sprite {
         return false;
     }
 
+    //
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.A:
@@ -158,14 +172,18 @@ public class Ship extends Sprite {
         return false;
     }
 
+    //движения объекта вправо
     private void moveRight() {
         v.set(v0);
     }
 
+    //движение объекта влево
     private void moveLeft() {
+        //метод rotateDeg(180) это развород вектора на 180
         v.set(v0).rotateDeg(180);
     }
 
+    //остановка объекта
     private void stop() {
         v.setZero();
     }

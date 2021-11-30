@@ -23,8 +23,11 @@ public class GameScreen extends BaseScreen {
 
     private TextureAtlas atlas;
     private Star[] stars;
+
+    // подключение класса карабля
     private Ship mainShip;
 
+    //отрисовкка объектов
     @Override
     public void show() {
         super.show();
@@ -38,6 +41,7 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
+        //отрисовка карабля
         mainShip = new Ship(atlas, bulletPool);
     }
 
@@ -49,6 +53,7 @@ public class GameScreen extends BaseScreen {
         draw();
     }
 
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
@@ -103,6 +108,7 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllDestroyed();
     }
 
+    //отрисовка объектов
     private void draw() {
         batch.begin();
         background.draw(batch);

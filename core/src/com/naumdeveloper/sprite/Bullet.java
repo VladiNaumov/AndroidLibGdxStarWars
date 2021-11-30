@@ -4,22 +4,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.base.Sprite;
+import com.naumdeveloper.base.BaseSprite;
 
-public class Bullet extends Sprite {
+public class Bullet extends BaseSprite {
 
     private final Vector2 v = new Vector2();
 
     private Rect worldBounds;
     private int damage;
-    private Sprite owner;
+    private BaseSprite owner;
 
     public Bullet() {
         regions = new TextureRegion[1];
     }
 
     public void set(
-            Sprite owner,
+            BaseSprite owner,
             TextureRegion region,
             Vector2 pos,
             Vector2 v,
@@ -48,7 +48,7 @@ public class Bullet extends Sprite {
         return damage;
     }
 
-    public Sprite getOwner() {
+    public BaseSprite getOwner() {
         return owner;
     }
 }
