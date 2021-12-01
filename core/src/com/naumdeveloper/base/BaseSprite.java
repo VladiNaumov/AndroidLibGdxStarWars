@@ -11,8 +11,11 @@ import com.naumdeveloper.util.Regions;
 //БАЗОВЫЙ КЛАСС ДЛЯ СПРАЙТОВ. КОГДА ТЫ СОЗДАЕШЬ СВОЙ СПРАЙТ ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
 public abstract class BaseSprite extends Rect {
 
+    //
     protected float angle;
+    //
     protected float scale = 1f;
+    //
     protected TextureRegion[] regions;
 
     //указывает на текущий кадр, по умолчанию он равен 0

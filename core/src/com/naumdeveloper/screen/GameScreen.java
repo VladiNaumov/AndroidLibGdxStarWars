@@ -72,30 +72,34 @@ public class GameScreen extends BaseScreen {
         bulletPool.dispose();
     }
 
-    @Override
-    public boolean touchDown(Vector2 touch, int pointer, int button) {
-        mainShip.touchDown(touch, pointer, button);
-        return false;
-    }
-
+    // данный метод отвечает за прикосновение к экрану
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
         return false;
     }
 
+    // данный метод отвечает когда мы отпускаем палец с экрана
+    @Override
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        mainShip.touchDown(touch, pointer, button);
+        return false;
+    }
+    //движение объекта на сцене при нажатие на клавишу
     @Override
     public boolean keyDown(int keycode) {
         mainShip.keyDown(keycode);
         return false;
     }
 
+    // движене объекта на сцене, когда клавишу мы отпускаем
     @Override
     public boolean keyUp(int keycode) {
         mainShip.keyUp(keycode);
         return false;
     }
 
+    // обновляет экран. Это происходит 60 кадров в секунду
     private void update(float delta) {
         for (Star star : stars) {
             star.update(delta);

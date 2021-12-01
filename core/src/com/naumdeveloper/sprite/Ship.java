@@ -35,9 +35,13 @@ public class Ship extends BaseSprite {
 
     private Rect worldBounds;
 
+    // состояние нажатия клавиши влево
     private boolean pressedLeft;
+
+    // состояние нажатия клавиши вправо
     private boolean pressedRight;
 
+    // для работы мультитача
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
@@ -72,15 +76,22 @@ public class Ship extends BaseSprite {
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
-//        if (getRight() > worldBounds.getRight()) {
-//            setRight(worldBounds.getRight());
-//            stop();
-//        }
-//        if (getLeft() < worldBounds.getLeft()) {
-//            setLeft(worldBounds.getLeft());
-//            stop();
-//        }
+        /*
 
+        // первый пример (что бы игровой объект не улетал за придела экрана)
+
+       if (getRight() > worldBounds.getRight()) {
+           setRight(worldBounds.getRight());
+            stop();
+        }
+        if (getLeft() < worldBounds.getLeft()) {
+            setLeft(worldBounds.getLeft());
+            stop();
+        }
+
+         */
+
+        //второй пример (что бы игровой объект не улетал за придела экрана)
         if (getLeft() > worldBounds.getRight()) {
             setRight(worldBounds.getLeft());
         }
@@ -89,7 +100,7 @@ public class Ship extends BaseSprite {
         }
     }
 
-    // передача событий нажатия на экран (клавиатуру)
+    // передача событий нажатия на экран
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         if (touch.x < worldBounds.pos.x) {
@@ -108,6 +119,7 @@ public class Ship extends BaseSprite {
         return false;
     }
 
+    // передача событий когда мы убераем палец с экрана
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         if (pointer == leftPointer) {
@@ -128,14 +140,18 @@ public class Ship extends BaseSprite {
         return false;
     }
 
-    //
+    //управление клавиатурой когда мы нажамаем на клавишу
     public boolean keyDown(int keycode) {
         switch (keycode) {
+
+            //движение влево
             case Input.Keys.A:
             case Input.Keys.LEFT:
                 pressedLeft = true;
                 moveLeft();
                 break;
+
+                //движение вправо
             case Input.Keys.D:
             case Input.Keys.RIGHT:
                 pressedRight = true;
@@ -148,6 +164,7 @@ public class Ship extends BaseSprite {
         return false;
     }
 
+    //управление клавиатурой когда мы отпускаем клавишу
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.A:
@@ -187,6 +204,7 @@ public class Ship extends BaseSprite {
     private void stop() {
         v.setZero();
     }
+
 
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
