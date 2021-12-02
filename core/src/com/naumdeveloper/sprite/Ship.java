@@ -20,10 +20,10 @@ public class Ship extends BaseSprite {
     //
     private static final int INVALID_POINTER = -1;
 
-    //вектор скорости (для движения нашего карабля)
+    // вектор скорости (для движения нашего карабля)
     private final Vector2 v;
 
-    //Вектор направления объекта
+    // Вектор направления объекта
     private final Vector2 v0;
 
     private final BulletPool bulletPool;
@@ -40,6 +40,9 @@ public class Ship extends BaseSprite {
 
     // состояние нажатия клавиши вправо
     private boolean pressedRight;
+
+    private float reloadTimer;
+    private final float reloadInterval;
 
     // для работы мультитача
     private int leftPointer = INVALID_POINTER;
@@ -59,6 +62,10 @@ public class Ship extends BaseSprite {
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletHeight = 0.01f;
         this.damage = 1;
+
+        //interval strelbi
+        this.reloadInterval = 0.25f;
+
     }
 
     // позиционирование объекта
@@ -76,6 +83,14 @@ public class Ship extends BaseSprite {
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
+        reloadTimer+=delta;
+
+        if(reloadTimer > reloadInterval){
+            reloadTimer = 0f;
+
+            //method strelba
+            shoot();
+        }
         /*
 
         // первый пример (что бы игровой объект не улетал за придела экрана)

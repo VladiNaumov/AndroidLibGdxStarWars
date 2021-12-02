@@ -1,5 +1,7 @@
 package com.naumdeveloper.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +29,8 @@ public class GameScreen extends BaseScreen {
     // подключение класса карабля
     private Ship mainShip;
 
+    private Music music;
+
     //отрисовкка объектов
     @Override
     public void show() {
@@ -43,6 +47,10 @@ public class GameScreen extends BaseScreen {
         }
         //отрисовка карабля
         mainShip = new Ship(atlas, bulletPool);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/laser.wav"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -70,6 +78,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        music.dispose();
     }
 
     // данный метод отвечает за прикосновение к экрану
