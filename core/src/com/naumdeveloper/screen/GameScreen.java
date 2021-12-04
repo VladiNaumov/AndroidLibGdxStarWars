@@ -10,7 +10,7 @@ import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.base.BaseScreen;
 import com.naumdeveloper.sprite.Background;
 import com.naumdeveloper.sprite.BulletPool;
-import com.naumdeveloper.sprite.Ship;
+import com.naumdeveloper.sprite.MainShip;
 import com.naumdeveloper.sprite.Star;
 
 
@@ -27,7 +27,7 @@ public class GameScreen extends BaseScreen {
     private Star[] stars;
 
     // подключение класса карабля
-    private Ship mainShip;
+    private MainShip mainShip;
 
     private Music music;
 
@@ -46,7 +46,7 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         //отрисовка карабля
-        mainShip = new Ship(atlas, bulletPool);
+        mainShip = new MainShip(atlas, bulletPool);
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/laser.wav"));
         music.setLooping(true);
