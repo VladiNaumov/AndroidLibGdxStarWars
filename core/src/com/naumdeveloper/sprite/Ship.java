@@ -8,37 +8,36 @@ import com.naumdeveloper.math.Rect;
 
 
 public class Ship extends BaseSprite {
-    // вектор скорости (для движения нашего карабля)
-    protected  Vector2 v;
-    // Вектор направления объекта
-    protected  Vector2 v0;
+    protected Vector2 v;
+    protected Vector2 v0;
 
-    protected  BulletPool bulletPool;
-    protected  TextureRegion bulletRegion;
-    protected  Vector2 bulletV;
-    protected  float bulletHeight;
-    protected  int damage;
+    protected BulletPool bulletPool;
+    protected TextureRegion bulletRegion;
+    protected Vector2 bulletV;
+    protected float bulletHeight;
+    protected int damage;
     protected Sound bulletSound;
 
     protected Rect worldBounds;
 
+    protected int hp;
+
     protected float reloadTimer;
     protected float reloadInterval;
 
+    public Ship() {
+    }
+
     public Ship(TextureRegion region, int rows, int cols, int frames) {
         super(region, rows, cols, frames);
-
     }
 
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
-        reloadTimer+=delta;
-
-        if(reloadTimer > reloadInterval){
+        reloadTimer += delta;
+        if (reloadTimer > reloadInterval) {
             reloadTimer = 0f;
-
-            //Метод стрельбы
             shoot();
         }
     }
@@ -46,6 +45,7 @@ public class Ship extends BaseSprite {
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, damage);
+        bulletSound.play();
     }
 
 }

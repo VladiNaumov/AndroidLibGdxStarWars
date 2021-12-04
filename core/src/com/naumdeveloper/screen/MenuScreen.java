@@ -28,13 +28,10 @@ public class MenuScreen extends BaseScreen {
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
 
-
-
     public MenuScreen(Game game) {
         this.game = game;
     }
 
-    //проводим инициализацию
     @Override
     public void show() {
         super.show();
@@ -49,9 +46,6 @@ public class MenuScreen extends BaseScreen {
         }
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
-
-
-
     }
 
     @Override
@@ -72,13 +66,11 @@ public class MenuScreen extends BaseScreen {
         draw();
     }
 
-
     @Override
     public void dispose() {
         super.dispose();
         bg.dispose();
         atlas.dispose();
-
     }
 
     @Override
@@ -103,9 +95,12 @@ public class MenuScreen extends BaseScreen {
 
     private void draw() {
         batch.begin();
+//        batch.setColor(1f, 1f, 1f, 1f);
         background.draw(batch);
         for (Star star : stars) {
+//            batch.setColor(Color.YELLOW);
             star.draw(batch);
+//            batch.setColor(Color.CLEAR);
         }
         buttonExit.draw(batch);
         buttonPlay.draw(batch);
