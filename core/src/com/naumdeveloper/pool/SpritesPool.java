@@ -1,6 +1,7 @@
-package com.naumdeveloper.base;
+package com.naumdeveloper.pool;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.naumdeveloper.base.BaseSprite;
 
 import java.util.ArrayList;
 import java.util.List;

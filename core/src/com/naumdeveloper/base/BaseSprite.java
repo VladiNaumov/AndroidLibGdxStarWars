@@ -29,6 +29,9 @@ public abstract class BaseSprite extends Rect {
     }
 
     public BaseSprite(TextureRegion region) {
+         if(region == null){
+            throw new IllegalArgumentException("region must be not null");
+        }
         regions = new TextureRegion[1];
         regions[0] = region;
     }
@@ -42,7 +45,7 @@ public abstract class BaseSprite extends Rect {
      * @return массив регионов
      */
     public BaseSprite(TextureRegion region, int rows, int cols, int frames) {
-        regions = Regions.split(region, rows, cols, frames);
+		this.regions = Regions.split(region, rows, cols, frames);
     }
 
 

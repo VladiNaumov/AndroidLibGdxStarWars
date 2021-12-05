@@ -4,14 +4,17 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+
+import com.naumdeveloper.base.BaseShip;
 import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.pool.BulletPool;
 
-public  class MainShip extends Ship {
 
+public class MainShip extends BaseShip {
+    private static  final float RELOAD_INTERVAL = 0.2f;
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
-    private static final float RELOAD_INTERVAL = 0.2f;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -21,21 +24,22 @@ public  class MainShip extends Ship {
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
-        this.v = new Vector2();
-        this.v0 = new Vector2(0.5f, 0f);
         this.bulletPool = bulletPool;
         this.bulletSound = bulletSound;
-        this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletV = new Vector2(0, 0.5f);
+        this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
         this.damage = 1;
-        this.reloadInterval = RELOAD_INTERVAL;
-        this.reloadTimer = 0;
         this.hp = 100;
+        this.bulletRegion = atlas.findRegion("bulletMainShip");
+        this.v = new Vector2();
+        this.v0 = new Vector2(0.5f, 0);
+        this.reloadInterval = RELOAD_INTERVAL;
     }
 
     @Override
     public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
         this.worldBounds = worldBounds;
         setHeightProportion(HEIGHT);
         setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
@@ -44,11 +48,12 @@ public  class MainShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
-        if (getRight() > worldBounds.getRight()) {
+        bulletPos.set(this.pos.x, getTop());
+        if (getRight() > worldBounds.getRight()){
             setRight(worldBounds.getRight());
             stop();
         }
-        if (getLeft() < worldBounds.getLeft()) {
+        if(getLeft() < worldBounds.getLeft()){
             setLeft(worldBounds.getLeft());
             stop();
         }
@@ -56,14 +61,14 @@ public  class MainShip extends Ship {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        if (touch.x < worldBounds.pos.x) {
-            if (leftPointer != INVALID_POINTER) {
+        if(touch.x < worldBounds.pos.x){
+            if(leftPointer != INVALID_POINTER){
                 return false;
             }
             leftPointer = pointer;
             moveLeft();
         } else {
-            if (rightPointer != INVALID_POINTER) {
+            if(rightPointer != INVALID_POINTER){
                 return false;
             }
             rightPointer = pointer;
@@ -74,16 +79,16 @@ public  class MainShip extends Ship {
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        if (pointer == leftPointer) {
+        if(pointer == leftPointer){
             leftPointer = INVALID_POINTER;
-            if (rightPointer != INVALID_POINTER) {
+            if(rightPointer != INVALID_POINTER){
                 moveRight();
             } else {
                 stop();
             }
-        } else if (pointer == rightPointer) {
+        } else if (pointer == rightPointer){
             rightPointer = INVALID_POINTER;
-            if (leftPointer != INVALID_POINTER) {
+            if(leftPointer != INVALID_POINTER){
                 moveLeft();
             } else {
                 stop();
@@ -92,8 +97,36 @@ public  class MainShip extends Ship {
         return false;
     }
 
+    public boolean keyUp(int keycode) {
+        switch (keycode){
+            case Input.Keys.A:
+            case Input.Keys.LEFT:
+                pressedLeft = false;
+                if(pressedRight){
+                    moveRight();
+                } else {
+                    stop();
+                }
+                break;
+            case Input.Keys.D:
+            case Input.Keys.RIGHT:
+                pressedRight = false;
+                if(pressedLeft){
+                    moveLeft();
+                } else {
+                    stop();
+                }
+                break;
+            case Input.Keys.UP:
+                frame = 0;
+                break;
+        }
+        return false;
+    }
+
+
     public boolean keyDown(int keycode) {
-        switch (keycode) {
+        switch (keycode){
             case Input.Keys.A:
             case Input.Keys.LEFT:
                 pressedLeft = true;
@@ -108,40 +141,15 @@ public  class MainShip extends Ship {
         return false;
     }
 
-    public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Input.Keys.A:
-            case Input.Keys.LEFT:
-                pressedLeft = false;
-                if (pressedRight) {
-                    moveRight();
-                } else {
-                    stop();
-                }
-                break;
-            case Input.Keys.D:
-            case Input.Keys.RIGHT:
-                pressedRight = false;
-                if (pressedLeft) {
-                    moveLeft();
-                } else {
-                    stop();
-                }
-                break;
-        }
-        return false;
-    }
-
-    private void moveRight() {
+    private void moveRight(){
         v.set(v0);
-    }
+    };
 
-    private void moveLeft() {
+    private void moveLeft(){
         v.set(v0).rotateDeg(180);
-    }
+    };
 
-    private void stop() {
+    private void stop(){
         v.setZero();
-    }
-
+    };
 }

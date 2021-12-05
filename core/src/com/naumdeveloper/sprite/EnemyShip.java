@@ -1,22 +1,20 @@
 package com.naumdeveloper.sprite;
 
-
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+import com.naumdeveloper.base.BaseShip;
 import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.pool.BulletPool;
 
-import com.naumdeveloper.sprite.Ship;
-
-// вражеские корабли
-public class EnemyShip extends Ship {
-
-
-    public EnemyShip(BulletPool bulletPool, Sound bulletSound, Rect worldBounds) {
+public class EnemyShip extends BaseShip {
+    public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound bulletSound){
         this.bulletPool = bulletPool;
-        this.bulletSound = bulletSound;
         this.worldBounds = worldBounds;
+        this.bulletSound = bulletSound;
+        this.bulletV = new Vector2();
+        this.bulletPos = new Vector2();
         this.v = new Vector2();
         this.v0 = new Vector2();
     }
@@ -24,7 +22,13 @@ public class EnemyShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
-        if (getBottom() < worldBounds.getBottom()) {
+        if(getTop() < worldBounds.getTop()){
+            v.set(v0);
+        } else {
+            reloadTimer = reloadInterval * 0.8f;
+        }
+
+        if(getBottom() < worldBounds.getBottom()){
             destroy();
         }
     }
@@ -36,18 +40,19 @@ public class EnemyShip extends Ship {
             float bulletHeight,
             Vector2 bulletV,
             int damage,
+            int hp,
             float reloadInterval,
-            float height,
-            int hp
-    ) {
+            float height
+    ){
         this.regions = regions;
-        this.v.set(v);
+        this.v0.set(v);
         this.bulletRegion = bulletRegion;
         this.bulletHeight = bulletHeight;
-        this.bulletV = bulletV;
+        this.bulletV.set(bulletV);
         this.damage = damage;
+        this.hp = hp;
         this.reloadInterval = reloadInterval;
         setHeightProportion(height);
-        this.hp = hp;
+        this.v.set(0, -0.5f);
     }
 }

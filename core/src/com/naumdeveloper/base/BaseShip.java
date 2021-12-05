@@ -1,34 +1,37 @@
-package com.naumdeveloper.sprite;
+package com.naumdeveloper.base;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.naumdeveloper.base.BaseSprite;
 import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.pool.BulletPool;
+import com.naumdeveloper.sprite.Bullet;
 
 
-public class Ship extends BaseSprite {
+public class BaseShip extends BaseSprite {
+	
+    protected BulletPool bulletPool;
+    protected Sound bulletSound;
+    protected TextureRegion bulletRegion;
+    protected Vector2 bulletV;
+    protected Vector2 bulletPos;
+    protected float bulletHeight;
+    protected int damage;
+    protected int hp;
+
     protected Vector2 v;
     protected Vector2 v0;
 
-    protected BulletPool bulletPool;
-    protected TextureRegion bulletRegion;
-    protected Vector2 bulletV;
-    protected float bulletHeight;
-    protected int damage;
-    protected Sound bulletSound;
-
-    protected Rect worldBounds;
-
-    protected int hp;
-
     protected float reloadTimer;
     protected float reloadInterval;
+    protected Rect worldBounds;
 
-    public Ship() {
+   
+
+    public BaseShip() {
     }
 
-    public Ship(TextureRegion region, int rows, int cols, int frames) {
+    public BaseShip(TextureRegion region, int rows, int cols, int frames) {
         super(region, rows, cols, frames);
     }
 
@@ -40,11 +43,13 @@ public class Ship extends BaseSprite {
             reloadTimer = 0f;
             shoot();
         }
+		bulletPos.set(pos);
     }
 
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
-        bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, damage);
+       // bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, damage);
+        bullet.set(this, bulletRegion,bulletPos,bulletV,worldBounds, bulletHeight,damage );
         bulletSound.play();
     }
 

@@ -1,8 +1,8 @@
-package com.naumdeveloper.sprite;
+package com.naumdeveloper.pool;
 
 import com.badlogic.gdx.audio.Sound;
-import com.naumdeveloper.base.SpritesPool;
 import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.sprite.EnemyShip;
 
 public class EnemyPool extends SpritesPool<EnemyShip> {
 
@@ -18,6 +18,6 @@ public class EnemyPool extends SpritesPool<EnemyShip> {
 
     @Override
     protected EnemyShip newObject() {
-        return new EnemyShip(bulletPool, bulletSound, worldBounds);
+        return new EnemyShip(bulletPool, worldBounds, bulletSound);
     }
 }
