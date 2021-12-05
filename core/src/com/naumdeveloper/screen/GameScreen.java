@@ -32,7 +32,7 @@ public class GameScreen extends BaseScreen {
     private BulletPool bulletPool;
     private EnemyPool enemyPool;
 
-      
+    // подключение класса карабля
     private MainShip mainShip;
 
     private Music music;
@@ -41,6 +41,7 @@ public class GameScreen extends BaseScreen {
 
     private EnemyEmitter enemyEmitter;
 
+    //отрисовкка объектов
     @Override
     public void show() {
         super.show();
@@ -54,11 +55,13 @@ public class GameScreen extends BaseScreen {
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("textures/bg.png");
         background = new Background(bg);
+
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
 
+        //отрисовкка объектов
         bulletPool = new BulletPool();
         enemyPool = new EnemyPool(bulletPool, bulletSound, worldBounds);
         mainShip = new MainShip(atlas, bulletPool, laserSound);
@@ -86,7 +89,7 @@ public class GameScreen extends BaseScreen {
 
 
     }
-	
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
@@ -115,30 +118,36 @@ public class GameScreen extends BaseScreen {
         enemyPool.freeAllDestroyed();
     }
 
+    // данный метод отвечает когда мы отпускаем палец с экрана
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         mainShip.touchDown(touch, pointer, button);
         return false;
     }
 
+    // данный метод отвечает за прикосновение к экрану
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
         return false;
     }
 
+
+    //движение объекта на сцене при нажатие на клавишу
     @Override
     public boolean keyDown(int keycode) {
         mainShip.keyDown(keycode);
         return false;
     }
 
+    // движене объекта на сцене, когда клавишу мы отпускаем
     @Override
     public boolean keyUp(int keycode) {
         mainShip.keyUp(keycode);
         return false;
     }
 
+    // обновляет экран. Это происходит 60 кадров в секунду
     private void update(float delta) {
         for (Star star : stars) {
             star.update(delta);
@@ -149,7 +158,7 @@ public class GameScreen extends BaseScreen {
         enemyEmitter.generate(delta);
     }
 
-
+    //отрисовка объектов
     private void draw() {
         batch.begin();
         background.draw(batch);

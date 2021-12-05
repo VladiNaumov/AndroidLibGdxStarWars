@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
-import com.naumdeveloper.math.Rnd;
+import com.naumdeveloper.math.RandomRnd;
 import com.naumdeveloper.sprite.EnemyShip;
 import com.naumdeveloper.pool.EnemyPool;
 
@@ -99,7 +99,7 @@ public class EnemyEmitter {
                         ENEMY_BIG_HEIGHT);
             }
 
-            enemy.pos.x = Rnd.nextFloat(
+            enemy.pos.x = RandomRnd.nextFloat(
                     worldBounds.getLeft() + enemy.getHalfWidth(),
                     worldBounds.getRight() - enemy.getHalfWidth()
             );

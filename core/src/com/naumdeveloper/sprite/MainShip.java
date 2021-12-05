@@ -11,16 +11,25 @@ import com.naumdeveloper.pool.BulletPool;
 
 
 public class MainShip extends BaseShip {
+
+    //интервал стрельбы
     private static  final float RELOAD_INTERVAL = 0.2f;
+
+    // размер объекта
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
 
+    // состояние нажатия клавиши влево
     private boolean pressedLeft;
+
+    // состояние нажатия клавиши вправо
     private boolean pressedRight;
 
+    // для работы мультитача
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
+
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -37,6 +46,7 @@ public class MainShip extends BaseShip {
         this.reloadInterval = RELOAD_INTERVAL;
     }
 
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
@@ -45,6 +55,7 @@ public class MainShip extends BaseShip {
         setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
     }
 
+    // движение объекта
     @Override
     public void update(float delta) {
         super.update(delta);
@@ -141,14 +152,17 @@ public class MainShip extends BaseShip {
         return false;
     }
 
+    //движения объекта вправо
     private void moveRight(){
         v.set(v0);
     };
 
+    //движение объекта влево
     private void moveLeft(){
         v.set(v0).rotateDeg(180);
     };
 
+    //остановка объекта
     private void stop(){
         v.setZero();
     };

@@ -8,7 +8,7 @@ import com.naumdeveloper.pool.BulletPool;
 import com.naumdeveloper.sprite.Bullet;
 
 
-public class BaseShip extends BaseSprite {
+public abstract class BaseShip extends BaseSprite {
 	
     protected BulletPool bulletPool;
     protected Sound bulletSound;
@@ -48,7 +48,6 @@ public class BaseShip extends BaseSprite {
 
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
-       // bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, damage);
         bullet.set(this, bulletRegion,bulletPos,bulletV,worldBounds, bulletHeight,damage );
         bulletSound.play();
     }
