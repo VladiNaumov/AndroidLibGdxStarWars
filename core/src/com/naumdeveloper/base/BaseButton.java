@@ -3,6 +3,8 @@ package com.naumdeveloper.base;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+
+
 //БАЗОВЫЙ КЛАСС ДЛЯ КНОПОК. КОГДА ТЫ СОЗДАЕШЬ СВОЮ КНОПКУ, ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
 public abstract class BaseButton extends BaseSprite {
 
