@@ -8,45 +8,51 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.base.BaseShip;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.pool.BulletPool;
+import com.naumdeveloper.pool.ExplosionPool;
 
 
 public class MainShip extends BaseShip {
 
-    //интервал стрельбы
     private static  final float RELOAD_INTERVAL = 0.2f;
-
-    // размер объекта
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
 
-    // состояние нажатия клавиши влево
-    private boolean pressedLeft;
+    private static final int HP = 1;
 
-    // состояние нажатия клавиши вправо
+    private boolean pressedLeft;
     private boolean pressedRight;
 
-    // для работы мультитача
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.bulletSound = bulletSound;
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
         this.damage = 1;
-        this.hp = 100;
+        this.hp = HP;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
         this.reloadInterval = RELOAD_INTERVAL;
     }
 
-    // позиционирование объекта
+    public void starNewGame(){
+        hp = HP;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        pressedLeft = false;
+        pressedRight = false;
+        stop();
+        pos.x = worldBounds.pos.x;
+        flushDestroy();
+    }
+
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
@@ -55,7 +61,6 @@ public class MainShip extends BaseShip {
         setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
     }
 
-    // движение объекта
     @Override
     public void update(float delta) {
         super.update(delta);
@@ -152,18 +157,23 @@ public class MainShip extends BaseShip {
         return false;
     }
 
-    //движения объекта вправо
+    public boolean isBulletCollision(Bullet bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom());
+    }
+
     private void moveRight(){
         v.set(v0);
     };
 
-    //движение объекта влево
     private void moveLeft(){
         v.set(v0).rotateDeg(180);
     };
 
-    //остановка объекта
     private void stop(){
         v.setZero();
     };
+
 }
