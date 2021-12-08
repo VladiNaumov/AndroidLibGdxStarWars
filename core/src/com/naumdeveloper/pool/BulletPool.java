@@ -1,7 +1,7 @@
-package com.naumdeveloper.sprite;
+package com.naumdeveloper.pool;
 
 
-import com.naumdeveloper.base.SpritesPool;
+import com.naumdeveloper.sprite.Bullet;
 
 public class BulletPool extends SpritesPool<Bullet> {
     //

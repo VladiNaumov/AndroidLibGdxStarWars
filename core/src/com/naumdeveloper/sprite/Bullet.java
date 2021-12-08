@@ -14,7 +14,7 @@ public class Bullet extends BaseSprite {
     private int damage;
     private BaseSprite owner;
 
-    public Bullet() {
+    public Bullet(){
         regions = new TextureRegion[1];
     }
 
@@ -23,23 +23,23 @@ public class Bullet extends BaseSprite {
             TextureRegion region,
             Vector2 pos,
             Vector2 v,
-            float height,
             Rect worldBounds,
+            float height,
             int damage
-    ) {
+    ){
         this.owner = owner;
         this.regions[0] = region;
         this.pos.set(pos);
         this.v.set(v);
-        setHeightProportion(height);
         this.worldBounds = worldBounds;
+        setHeightProportion(height);
         this.damage = damage;
     }
 
     @Override
     public void update(float delta) {
-        this.pos.mulAdd(v, delta);
-        if (isOutside(worldBounds)) {
+        pos.mulAdd(v, delta);
+        if(isOutside(worldBounds)){
             destroy();
         }
     }

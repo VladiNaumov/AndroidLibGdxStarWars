@@ -2,16 +2,22 @@ package com.naumdeveloper.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.base.BaseScreen;
+import com.naumdeveloper.pool.BulletPool;
+import com.naumdeveloper.pool.EnemyPool;
 import com.naumdeveloper.sprite.Background;
-import com.naumdeveloper.sprite.BulletPool;
-import com.naumdeveloper.sprite.Ship;
+import com.naumdeveloper.sprite.EnemyShip;
+import com.naumdeveloper.sprite.MainShip;
 import com.naumdeveloper.sprite.Star;
+import com.naumdeveloper.util.EnemyEmitter;
+
+import java.util.List;
 
 
 public class GameScreen extends BaseScreen {
@@ -20,47 +26,69 @@ public class GameScreen extends BaseScreen {
 
     private Texture bg;
     private Background background;
+	private TextureAtlas atlas;
 
+	private Star[] stars;
     private BulletPool bulletPool;
-
-    private TextureAtlas atlas;
-    private Star[] stars;
+    private EnemyPool enemyPool;
 
     // подключение класса карабля
-    private Ship mainShip;
+    private MainShip mainShip;
 
     private Music music;
+    private Sound laserSound;
+    private Sound bulletSound;
+
+    private EnemyEmitter enemyEmitter;
 
     //отрисовкка объектов
     @Override
     public void show() {
         super.show();
+
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.play();
+
+        atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("textures/bg.png");
         background = new Background(bg);
-        atlas = new TextureAtlas("textures/mainAtlas.tpack");
-
-        bulletPool = new BulletPool();
 
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
-        //отрисовка карабля
-        mainShip = new Ship(atlas, bulletPool);
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/laser.wav"));
-        music.setLooping(true);
-        music.play();
+        //отрисовкка объектов
+        bulletPool = new BulletPool();
+        enemyPool = new EnemyPool(bulletPool, bulletSound, worldBounds);
+        mainShip = new MainShip(atlas, bulletPool, laserSound);
+        enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         update(delta);
+        checkCollisions();
         freeAllDestroyed();
         draw();
     }
 
+	@Override
+    public void dispose() {
+        super.dispose();
+        bg.dispose();
+        atlas.dispose();
+        enemyPool.dispose();
+        music.dispose();
+        laserSound.dispose();
+        bulletSound.dispose();
+
+
+    }
     // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
@@ -72,13 +100,29 @@ public class GameScreen extends BaseScreen {
         mainShip.resize(worldBounds);
     }
 
+    
+
+    private void checkCollisions(){
+        List<EnemyShip> enemyShipList = enemyPool.getActiveObjects();
+        for(EnemyShip enemyShip: enemyShipList){
+            float minDist = mainShip.getWidth();
+            if (!enemyShip.isDestroyed() && mainShip.pos.dst(enemyShip.pos) < minDist){
+                enemyShip.destroy();
+            }
+        }
+    }
+
+
+    private void freeAllDestroyed() {
+        bulletPool.freeAllDestroyed();
+        enemyPool.freeAllDestroyed();
+    }
+
+    // данный метод отвечает когда мы отпускаем палец с экрана
     @Override
-    public void dispose() {
-        super.dispose();
-        bg.dispose();
-        atlas.dispose();
-        bulletPool.dispose();
-        music.dispose();
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        mainShip.touchDown(touch, pointer, button);
+        return false;
     }
 
     // данный метод отвечает за прикосновение к экрану
@@ -88,12 +132,7 @@ public class GameScreen extends BaseScreen {
         return false;
     }
 
-    // данный метод отвечает когда мы отпускаем палец с экрана
-    @Override
-    public boolean touchDown(Vector2 touch, int pointer, int button) {
-        mainShip.touchDown(touch, pointer, button);
-        return false;
-    }
+
     //движение объекта на сцене при нажатие на клавишу
     @Override
     public boolean keyDown(int keycode) {
@@ -113,12 +152,10 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
+		bulletPool.updateActiveSprites(delta);
+		enemyPool.updateActiveSprites(delta);
         mainShip.update(delta);
-        bulletPool.updateActiveSprites(delta);
-    }
-
-    private void freeAllDestroyed() {
-        bulletPool.freeAllDestroyed();
+        enemyEmitter.generate(delta);
     }
 
     //отрисовка объектов
@@ -128,9 +165,15 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.draw(batch);
         }
+		
+		bulletPool.drawActiveSprites(batch);
+		enemyPool.drawActiveSprites(batch);
         mainShip.draw(batch);
-        bulletPool.drawActiveSprites(batch);
+       
+
         batch.end();
     }
+
+
 
 }
