@@ -7,26 +7,44 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.util.Regions;
 
-public class Sprite extends Rect {
 
+//БАЗОВЫЙ КЛАСС ДЛЯ СПРАЙТОВ. КОГДА ТЫ СОЗДАЕШЬ СВОЙ СПРАЙТ ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
+public abstract class BaseSprite extends Rect {
+
+    //
     protected float angle;
+    //
     protected float scale = 1f;
+    //
     protected TextureRegion[] regions;
+
+    //указывает на текущий кадр, по умолчанию он равен 0
     protected int frame;
+
+    //
     private boolean destroyed;
 
-    public Sprite() {
+    public BaseSprite() {
 
     }
 
-    public Sprite(TextureRegion region) {
+    public BaseSprite(TextureRegion region) {
         regions = new TextureRegion[1];
         regions[0] = region;
     }
 
-    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+    /**
+     * Разбивает TextureRegion на фреймы
+     * @param region регион
+     * @param rows количество строк
+     * @param cols количество столбцов
+     * @param frames количество фреймов
+     * @return массив регионов
+     */
+    public BaseSprite(TextureRegion region, int rows, int cols, int frames) {
         regions = Regions.split(region, rows, cols, frames);
     }
+
 
     public void resize(Rect worldBounds) {
 

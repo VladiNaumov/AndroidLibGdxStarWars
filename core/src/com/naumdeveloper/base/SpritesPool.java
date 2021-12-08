@@ -5,9 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.naumdeveloper.base.Sprite;
-
-public abstract class SpritesPool<T extends Sprite> {
+//БАЗОВЫЙ КЛАСС ДЛЯ ПУЛОВ СПРАЙТОВ.
+public abstract class SpritesPool<T extends BaseSprite> {
 
     protected final List<T> activeObjects = new ArrayList<>();
     protected final List<T> freeObjects = new ArrayList<>();

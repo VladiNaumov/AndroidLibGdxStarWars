@@ -13,7 +13,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.naumdeveloper.math.MatrixUtils;
 import com.naumdeveloper.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {
+
+//БАЗОВЫЙ КЛАСС ДЛЯ SCREENS. КОГДА ТЫ СОЗДАЕШЬ СВОЙ SCREEN ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
+public abstract class BaseScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
 

@@ -1,5 +1,7 @@
 package com.naumdeveloper.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -23,8 +25,13 @@ public class GameScreen extends BaseScreen {
 
     private TextureAtlas atlas;
     private Star[] stars;
+
+    // подключение класса карабля
     private Ship mainShip;
 
+    private Music music;
+
+    //отрисовкка объектов
     @Override
     public void show() {
         super.show();
@@ -38,7 +45,12 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
+        //отрисовка карабля
         mainShip = new Ship(atlas, bulletPool);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/laser.wav"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -49,6 +61,7 @@ public class GameScreen extends BaseScreen {
         draw();
     }
 
+    // позиционирование объекта
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
@@ -65,32 +78,37 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        music.dispose();
     }
 
-    @Override
-    public boolean touchDown(Vector2 touch, int pointer, int button) {
-        mainShip.touchDown(touch, pointer, button);
-        return false;
-    }
-
+    // данный метод отвечает за прикосновение к экрану
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
         return false;
     }
 
+    // данный метод отвечает когда мы отпускаем палец с экрана
+    @Override
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        mainShip.touchDown(touch, pointer, button);
+        return false;
+    }
+    //движение объекта на сцене при нажатие на клавишу
     @Override
     public boolean keyDown(int keycode) {
         mainShip.keyDown(keycode);
         return false;
     }
 
+    // движене объекта на сцене, когда клавишу мы отпускаем
     @Override
     public boolean keyUp(int keycode) {
         mainShip.keyUp(keycode);
         return false;
     }
 
+    // обновляет экран. Это происходит 60 кадров в секунду
     private void update(float delta) {
         for (Star star : stars) {
             star.update(delta);
@@ -103,6 +121,7 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllDestroyed();
     }
 
+    //отрисовка объектов
     private void draw() {
         batch.begin();
         background.draw(batch);
