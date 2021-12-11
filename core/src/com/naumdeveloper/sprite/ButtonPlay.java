@@ -3,16 +3,16 @@ package com.naumdeveloper.sprite;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import com.naumdeveloper.screen.GameScreen;
-import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.base.BaseButton;
+import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.screen.GameScreen;
 
 public class ButtonPlay extends BaseButton {
 
-    private static final float HEIGHT = 0.25f;
-    private static final float MARGIN = 0.03f;
-
     private final Game game;
+
+    private static final float HEIGHT = 0.25f;
+    private static final float PADDING = 0.03f;
 
     public ButtonPlay(TextureAtlas atlas, Game game) {
         super(atlas.findRegion("btPlay"));
@@ -21,14 +21,13 @@ public class ButtonPlay extends BaseButton {
 
     @Override
     public void resize(Rect worldBounds) {
-        super.resize(worldBounds);
         setHeightProportion(HEIGHT);
-        setLeft(worldBounds.getLeft() + MARGIN);
-        setBottom(worldBounds.getBottom() + MARGIN);
+        setLeft(worldBounds.getLeft() + PADDING);
+        setBottom(worldBounds.getBottom() + PADDING);
     }
 
     @Override
     public void action() {
         game.setScreen(new GameScreen());
-            }
+    }
 }

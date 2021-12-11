@@ -3,8 +3,8 @@ package com.naumdeveloper.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.base.BaseSprite;
+import com.naumdeveloper.math.Rect;
 
 public class Bullet extends BaseSprite {
 

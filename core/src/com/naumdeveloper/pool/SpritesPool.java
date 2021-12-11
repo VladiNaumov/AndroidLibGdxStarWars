@@ -6,9 +6,7 @@ import com.naumdeveloper.base.BaseSprite;
 import java.util.ArrayList;
 import java.util.List;
 
-//БАЗОВЫЙ КЛАСС ДЛЯ ПУЛОВ СПРАЙТОВ.
-public abstract class SpritesPool<T extends BaseSprite> {
-
+public abstract class SpritesPool <T extends BaseSprite>{
     protected  final List<T> activeObjects = new ArrayList<>();
     protected  final List<T> freeObjects = new ArrayList<>();
 
@@ -71,4 +69,5 @@ public abstract class SpritesPool<T extends BaseSprite> {
             freeObjects.add(object);
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.naumdeveloper.base;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -7,57 +8,48 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.util.Regions;
 
-
-//БАЗОВЫЙ КЛАСС ДЛЯ СПРАЙТОВ. КОГДА ТЫ СОЗДАЕШЬ СВОЙ СПРАЙТ ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
 public abstract class BaseSprite extends Rect {
 
-    //
     protected float angle;
-    //
     protected float scale = 1f;
-    //
     protected TextureRegion[] regions;
-
-    //указывает на текущий кадр, по умолчанию он равен 0
     protected int frame;
-
-    //
     private boolean destroyed;
 
-    public BaseSprite() {
+    public BaseSprite(){
 
     }
 
-    public BaseSprite(TextureRegion region) {
-         if(region == null){
+    public BaseSprite(TextureRegion region){
+        if(region == null){
             throw new IllegalArgumentException("region must be not null");
         }
         regions = new TextureRegion[1];
         regions[0] = region;
     }
 
-    /**
-     * Разбивает TextureRegion на фреймы
-     * @param region регион
-     * @param rows количество строк
-     * @param cols количество столбцов
-     * @param frames количество фреймов
-     * @return массив регионов
-     */
-    public BaseSprite(TextureRegion region, int rows, int cols, int frames) {
-		this.regions = Regions.split(region, rows, cols, frames);
+    public BaseSprite(TextureRegion region, int rows, int cols, int frames){
+        this.regions = Regions.split(region, rows, cols, frames);
+        for(TextureRegion item : regions){
+            item.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
     }
 
-
-    public void resize(Rect worldBounds) {
-
+    public void setHeightProportion(float height){
+        setHeight(height);
+        float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
+        setWidth(height * aspect);
     }
 
-    public void update(float delta) {
+    public void resize(Rect worldBounds){
 
     }
 
-    public void draw(SpriteBatch batch) {
+    public void update(float delta){
+
+    }
+
+    public void draw(SpriteBatch batch){
         batch.draw(
                 regions[frame],
                 getLeft(), getBottom(),
@@ -68,12 +60,6 @@ public abstract class BaseSprite extends Rect {
         );
     }
 
-    public void setHeightProportion(float height) {
-        setHeight(height);
-        float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
-        setWidth(height * aspect);
-    }
-
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         return false;
     }
@@ -82,7 +68,7 @@ public abstract class BaseSprite extends Rect {
         return false;
     }
 
-    public boolean touchDragged(Vector2 touch, int pointer) {
+    public boolean touchDragged(Vector2 touch, int pointer, int button) {
         return false;
     }
 
@@ -102,12 +88,12 @@ public abstract class BaseSprite extends Rect {
         this.scale = scale;
     }
 
-    public void destroy() {
-        this.destroyed = true;
+    public void destroy(){
+        destroyed = true;
     }
 
-    public void flushDestroy() {
-        this.destroyed = false;
+    public void flushDestroy(){
+        destroyed = false;
     }
 
     public boolean isDestroyed() {

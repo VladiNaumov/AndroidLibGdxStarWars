@@ -3,7 +3,6 @@ package com.naumdeveloper.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
@@ -13,12 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.naumdeveloper.math.MatrixUtils;
 import com.naumdeveloper.math.Rect;
 
-
-//БАЗОВЫЙ КЛАСС ДЛЯ SCREENS. КОГДА ТЫ СОЗДАЕШЬ СВОЙ SCREEN ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
-public abstract class BaseScreen implements Screen, InputProcessor {
-
-    protected SpriteBatch batch;
-
+public  abstract class BaseScreen implements Screen, InputProcessor {
     private Rect screenBounds;
     protected Rect worldBounds;
     private Rect glBounds;
@@ -26,24 +20,26 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
-    private Vector2 touch;
+    private final Vector2 touch = new Vector2();
+
+    protected SpriteBatch batch;
 
     @Override
     public void show() {
         System.out.println("show");
-        Gdx.input.setInputProcessor(this);
-        batch = new SpriteBatch();
         screenBounds = new Rect();
         worldBounds = new Rect();
-        glBounds = new Rect(0, 0, 1f, 1f);
+        glBounds = new Rect(0, 0, 1, 1);
         worldToGl = new Matrix4();
         screenToWorld = new Matrix3();
-        touch = new Vector2();
+        batch = new SpriteBatch();
+        batch.getProjectionMatrix().idt();
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.BROWN);
+        ScreenUtils.clear(0.5f, 0.23f,0.74f, 1);
     }
 
     @Override
@@ -56,14 +52,14 @@ public abstract class BaseScreen implements Screen, InputProcessor {
         float aspect = width / (float) height;
         worldBounds.setHeight(1f);
         worldBounds.setWidth(1f * aspect);
+        MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
         resize(worldBounds);
-        MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
     }
 
-    public void resize(Rect worldBounds) {
-        System.out.println("worldBounds width = " + worldBounds.getWidth() + " height = " + worldBounds.getHeight());
+    public void resize(Rect worldBounds){
+        System.out.println("resize worldBounds.width = " + worldBounds.getWidth() + " worldBounds.height = " + worldBounds.getHeight());
     }
 
     @Override
@@ -84,7 +80,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
-        System.out.println("dispose");
+        System.out.println("hide");
         batch.dispose();
     }
 
@@ -115,7 +111,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     }
 
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        System.out.println("touchDown touchX = " + touch.x + " touchY = " + touch.y);
+        System.out.println("touchDown touch.X = " + touch.x + " touch.Y = " + touch.y);
         return false;
     }
 
@@ -128,7 +124,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     }
 
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
+        System.out.println("touchUp touch.X = " + touch.x + " touch.Y = " + touch.y);
         return false;
     }
 
@@ -141,9 +137,10 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     }
 
     public boolean touchDragged(Vector2 touch, int pointer) {
-        System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
+        System.out.println("touchDragged touch.X = " + touch.x + " touch.Y = " + touch.y);
         return false;
     }
+
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {

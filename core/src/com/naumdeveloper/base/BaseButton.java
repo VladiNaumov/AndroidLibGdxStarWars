@@ -3,15 +3,10 @@ package com.naumdeveloper.base;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-
-
-//БАЗОВЫЙ КЛАСС ДЛЯ КНОПОК. КОГДА ТЫ СОЗДАЕШЬ СВОЮ КНОПКУ, ТО НУЖНО УНАСЛЕДОВАТЬСЯ ОТ ЭТОГО КЛАССА
 public abstract class BaseButton extends BaseSprite {
 
-    private static final float SCALE = 0.9f;
-
-    private int pointer;
     private boolean pressed;
+    private int pointer;
 
     public BaseButton(TextureRegion region) {
         super(region);
@@ -19,21 +14,21 @@ public abstract class BaseButton extends BaseSprite {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        if (pressed || !isMe(touch)) {
+        if (pressed || !isMe(touch)){
             return false;
         }
         this.pointer = pointer;
-        this.pressed = true;
-        this.scale = SCALE;
+        pressed = true;
+        scale = 0.9f;
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        if (this.pointer != pointer || !pressed) {
+        if(this.pointer != pointer || !pressed){
             return false;
         }
-        if (isMe(touch)) {
+        if(isMe(touch)){
             action();
         }
         pressed = false;

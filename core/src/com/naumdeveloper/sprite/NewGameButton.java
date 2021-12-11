@@ -1,11 +1,13 @@
 package com.naumdeveloper.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 import com.naumdeveloper.base.BaseButton;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.screen.GameScreen;
 
 public class NewGameButton extends BaseButton {
+
     private static final float HEIGHT = 0.05f;
     private static final float TOP_MARGIN = -0.012f;
 

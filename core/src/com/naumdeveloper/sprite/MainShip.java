@@ -10,7 +10,6 @@ import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.pool.BulletPool;
 import com.naumdeveloper.pool.ExplosionPool;
 
-
 public class MainShip extends BaseShip {
 
     private static  final float RELOAD_INTERVAL = 0.2f;
@@ -18,7 +17,7 @@ public class MainShip extends BaseShip {
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
 
-    private static final int HP = 1;
+    private static final int HP = 100;
 
     private boolean pressedLeft;
     private boolean pressedRight;
