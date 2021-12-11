@@ -14,15 +14,18 @@ import com.naumdeveloper.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
 
-    private static final int STAR_COUNT = 256;
-
     private final Game game;
 
-    private Texture bg;
-    private Background background;
+    private static final int STAR_COUNT = 256;
+    private static final float V_LEN = 1.5f;
 
     private TextureAtlas atlas;
-    private Star[] stars;
+    private Texture bg;
+
+    private Background background;
+    private Star stars[];
+
+
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
 
@@ -33,26 +36,27 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
         bg = new Texture("textures/bg.png");
         background = new Background(bg);
-
-        atlas = new TextureAtlas("textures/menuAtlas.tpack");
-
         stars = new Star[STAR_COUNT];
-        for (int i = 0; i < stars.length; i++) {
+        for (int i = 0; i < stars.length; i++){
             stars[i] = new Star(atlas);
         }
+
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
+
     }
 
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        for (Star star : stars) {
+        for(Star star: stars){
             star.resize(worldBounds);
         }
+
         buttonExit.resize(worldBounds);
         buttonPlay.resize(worldBounds);
     }
@@ -62,6 +66,7 @@ public class MenuScreen extends BaseScreen {
         super.render(delta);
         update(delta);
         draw();
+
     }
 
     @Override
@@ -71,11 +76,12 @@ public class MenuScreen extends BaseScreen {
         atlas.dispose();
     }
 
+
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         buttonExit.touchDown(touch, pointer, button);
         buttonPlay.touchDown(touch, pointer, button);
-        return false;
+        return super.touchDown(touch, pointer, button);
     }
 
     @Override
@@ -85,23 +91,23 @@ public class MenuScreen extends BaseScreen {
         return false;
     }
 
-    private void update(float delta) {
-        for (Star star : stars) {
+    private void update(float delta){
+        for(Star star: stars){
             star.update(delta);
         }
     }
 
-    private void draw() {
+    private void draw(){
         batch.begin();
-//        batch.setColor(1f, 1f, 1f, 1f);
         background.draw(batch);
-        for (Star star : stars) {
-//            batch.setColor(Color.YELLOW);
+        for(Star star: stars){
             star.draw(batch);
-//            batch.setColor(Color.CLEAR);
         }
+
         buttonExit.draw(batch);
         buttonPlay.draw(batch);
+
         batch.end();
     }
+
 }
