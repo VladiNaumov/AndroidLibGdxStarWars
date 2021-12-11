@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.naumdeveloper.base.BaseSprite;
 
 public class Explosion extends BaseSprite {
+
     private static final float ANIMATE_INTERVAL = 0.017f;
     private float animateTimer;
 
@@ -40,5 +41,4 @@ public class Explosion extends BaseSprite {
         super.destroy();
         frame = 0;
     }
-
 }

@@ -1,6 +1,7 @@
 package com.naumdeveloper.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 import com.naumdeveloper.base.BaseSprite;
 import com.naumdeveloper.math.Rect;
 

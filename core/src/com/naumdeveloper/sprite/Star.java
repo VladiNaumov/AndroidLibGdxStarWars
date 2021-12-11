@@ -1,47 +1,46 @@
 package com.naumdeveloper.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.base.BaseSprite;
+import com.naumdeveloper.math.Rect;
+import com.naumdeveloper.math.Rnd;
 
 public class Star extends BaseSprite {
 
-    private Rect worldBounds;
     private final Vector2 v;
+    private Rect worldBounds;
 
     public Star(TextureAtlas atlas) {
         super(atlas.findRegion("star"));
-        float x = MathUtils.random(-0.005f, 0.005f);
-        float y = MathUtils.random(-0.4f, -0.1f);
-        this.v = new Vector2(x, y);
+        v = new Vector2(Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.2f, -0.01f));
     }
 
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
-        setHeightProportion(0.04f * v.y);
-        float x = MathUtils.random(worldBounds.getLeft(), worldBounds.getRight());
-        float y = MathUtils.random(worldBounds.getBottom(), worldBounds.getTop());
-        this.pos.set(x, y);
+        float height = v.y * 0.07f;
+        setHeightProportion(height);
+        float x = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight());
+        float y = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop());
+        pos.set(x, y);
     }
 
     @Override
     public void update(float delta) {
-        this.pos.mulAdd(v, delta);
+        pos.mulAdd(v, delta);
         checkBounds();
     }
 
-    private void checkBounds() {
-        if (getRight() < worldBounds.getLeft()) {
+    private void checkBounds(){
+        if(getRight() < worldBounds.getLeft()){
             setLeft(worldBounds.getRight());
         }
-        if (getLeft() > worldBounds.getRight()) {
+        if(getLeft() > worldBounds.getRight()){
             setRight(worldBounds.getLeft());
         }
-        if (getTop() < worldBounds.getBottom()) {
+        if(getTop() < worldBounds.getBottom() ){
             setBottom(worldBounds.getTop());
         }
     }

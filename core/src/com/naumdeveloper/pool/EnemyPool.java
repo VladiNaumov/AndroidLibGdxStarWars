@@ -1,11 +1,12 @@
 package com.naumdeveloper.pool;
 
 import com.badlogic.gdx.audio.Sound;
+
+import com.naumdeveloper.pool.SpritesPool;
 import com.naumdeveloper.math.Rect;
 import com.naumdeveloper.sprite.EnemyShip;
 
 public class EnemyPool extends SpritesPool<EnemyShip> {
-
     private final BulletPool bulletPool;
     private final ExplosionPool explosionPool;
     private final Rect worldBounds;

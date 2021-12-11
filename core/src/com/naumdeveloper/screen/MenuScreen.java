@@ -13,7 +13,7 @@ import com.naumdeveloper.sprite.ButtonPlay;
 import com.naumdeveloper.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
-
+///
     private final Game game;
 
     private static final int STAR_COUNT = 256;
@@ -109,5 +109,6 @@ public class MenuScreen extends BaseScreen {
 
         batch.end();
     }
+
 
 }

@@ -10,9 +10,7 @@ import com.naumdeveloper.pool.ExplosionPool;
 import com.naumdeveloper.sprite.Bullet;
 import com.naumdeveloper.sprite.Explosion;
 
-
 public abstract class BaseShip extends BaseSprite {
-
     private static final float DAMAGE_ANIMATE_INTERVAL = 0.1f;
 
     protected ExplosionPool explosionPool;
@@ -64,7 +62,7 @@ public abstract class BaseShip extends BaseSprite {
         }
         damageAnimateTimer = 0f;
         frame = 1;
-
+        
     }
 
     public int getDamage() {
@@ -81,6 +79,10 @@ public abstract class BaseShip extends BaseSprite {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, worldBounds, bulletHeight, damage);
         bulletSound.play();
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     private void boom(){

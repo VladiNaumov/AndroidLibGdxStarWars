@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Генератор случайных чисел
  */
-public class RandomRnd {
+public class Rnd {
     private static final Random random = new Random();
 
     /**
