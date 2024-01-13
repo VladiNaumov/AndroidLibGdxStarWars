@@ -30,8 +30,6 @@ tools - texturepacker-gui (утилита упаковщикa текстур)
 
 - class WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
 
-### 
-
 ### для подключения игровых  объекта нужно:
 
 1. создаем класс и описываем его. (пример class Hero, Star, Background, Asteroid, Bullet, Weapon,  )
