@@ -1,6 +1,6 @@
 ### LibGdx_games,  GeekBrains:  Fansil
 
-tools - texturepacker-gui (утилита упаковщикa текстур)
+tools - texturepacker-gui (утилита упаковщика текстур)
 
 ### Classes
 
@@ -13,8 +13,11 @@ tools - texturepacker-gui (утилита упаковщикa текстур)
 - class Weapon - описание объекта Weapon (Оружие)
 - class WeaponRendering - отрисовка оружия
 - class PowerUp - описание объекта (дабление в игру всяких нäшек, таких как пополнение жизни, монетки и т.д ) 
-- class PowerUpConroller- подключаем класс PowerUp и описываем логику работы объекта PowerUp (что он должен делать)
-- class GameController - подключаем нужные классы и описываем логику взаимодействия с другими объектами
+- class PowerUpController- подключаем класс PowerUp и описываем логику работы объекта PowerUp (что он должен делать)
+- 
+- class GameController - это как хаб для всех контроллеров (описываем логику взаимодействия) и 
+потом передает на отрисовку классу WorldRenderer
+- class WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
 
 ### utility classes
 
@@ -28,7 +31,6 @@ tools - texturepacker-gui (утилита упаковщикa текстур)
   Пример.  Когда игровой объект (Asteroid или Bullet) вылетает за экран он становится не активным  
   и кладется в массив не активных объектов. Потом он переводится в массив активных объектов и может использоваться в игре снова.
 
-- class WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
 
 ### для подключения игровых  объекта нужно:
 
@@ -36,8 +38,7 @@ tools - texturepacker-gui (утилита упаковщикa текстур)
 2. подключаем этот класс к контроллеру игровых объектов GamesController и описывает взаимодействие с другими объектами
 3. отдаем класс GamesController на отрисовку классу WorldRenderer.
 
-
-WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
+ WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
 
 
 
