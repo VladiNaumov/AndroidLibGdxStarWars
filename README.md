@@ -1,32 +1,44 @@
-### LibGdx_games
+### LibGdx_games,  GeekBrains:  Fansil
 
-tools - texturepacker-gui (Упаковщик текстур)
-
-### GeekBrains:  Fansil
+tools - texturepacker-gui (утилита упаковщикa текстур)
 
 ### Classes
-- util/Assets - управление текстурами
-- helper/ObjectPool - в нем два массива для хранения игровых объектов.
 
-  Один массив - это для хранения активных игровых объектов, второй - для не активных игровых объектов
+- class Hero - описание объекта Hero
+- class Background - описание объекта Background
+- class Asteroid  описание объекта Asteroid
+- class AsteroidController - подключаем класс Asteroid и описываем логику работы объекта Asteroid (что он должен делать)
+- class Bullet - описание объекта пуля
+- class BulletController - подключаем класс Bullet и описываем логику работы объекта Bullet (что он должен делать)
+- class Weapon - описание объекта Weapon (Оружие)
+- class WeaponRendering - отрисовка оружия 
+- class GameController - подключаем нужные классы и описываем логику взаимодействия с другими объектами
+
+### utility classes
+
+- class Assets - управление текстурами Atlas (pattern Singleton)
+- class Particle - описание частицы
+- class ParticleController - создание эффектов с помощью частиц (render() работа с эффектами цветовой гаммы )
+- class ObjectPool - pattern ObjectPool
+- class ScreenManager - Менеджер управление экранами (pattern Singleton)
+
+  B нем два массива для хранения игровых объектов, oдин массив - это для хранения активных игровых объектов, второй - для не активных игровых объектов
   Пример.  Когда игровой объект (Asteroid или Bullet) вылетает за экран он становится не активным  
   и кладется в массив не активных объектов. Потом он переводится в массив активных объектов и может использоваться в игре снова.
 
+### 
+
 ### для подключения игровых  объекта нужно:
 
-1. создаем класс и описываем его. (пример class Hero, Star, Background, )
-2. подключаем этот класс к контроллеру игровых объектов GamesController, который передает координаты этого объекта для отрисовки его в игре
-3. отдаем класс GamesController на отрисовку классу WorldRenderer.
----
-1. создаем класс Bullet и описываем его.
-2. создаем класс BulletController, подключаем класс Bullet и создаем метод update(), который передает координаты этого объекта для отрисовки его в игре
-3. отдаем класс BulletController на отрисовку классу WorldRenderer.
----
-1. создаем класс Asteroid и описываем его.
-2. подключаем этот класс к контроллеру игровых объектов GamesController, который передает координаты этого объекта для отрисовки его в игре
+1. создаем класс и описываем его. (пример class Hero, Star, Background, Asteroid, Bullet, Weapon,  )
+2. подключаем этот класс к контроллеру игровых объектов GamesController и описывает взаимодействие с другими объектами
 3. отдаем класс GamesController на отрисовку классу WorldRenderer.
 
 
 WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet, ....).
+
+
+
+ 
 
 
