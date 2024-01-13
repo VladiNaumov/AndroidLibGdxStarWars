@@ -28,6 +28,10 @@ public class Hero {
     private Circle hitArea;
     private Weapon currentWeapon;
 
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
     public float getAngle() {
         return angle;
     }
@@ -61,9 +65,9 @@ public class Hero {
         this.hitArea = new Circle(position, 29);
         this.currentWeapon = new Weapon(gc, this, "Laser", 0.1f, 1, 600.0f, 300,
                 new Vector3[]{
-                    new Vector3(28, 0, 0),
-                    new Vector3(28, 90, 20),
-                    new Vector3(28, -90, -20)
+                        new Vector3(28, 0, 0),
+                        new Vector3(28, 90, 20),
+                        new Vector3(28, -90, -20)
                 });
     }
 
