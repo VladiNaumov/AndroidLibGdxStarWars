@@ -27,6 +27,11 @@ public class Hero {
     private StringBuilder sb;
     private Circle hitArea;
     private Weapon currentWeapon;
+    private int money;
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
 
     public float getAngle() {
         return angle;
@@ -61,9 +66,9 @@ public class Hero {
         this.hitArea = new Circle(position, 29);
         this.currentWeapon = new Weapon(gc, this, "Laser", 0.1f, 1, 600.0f, 300,
                 new Vector3[]{
-                    new Vector3(28, 0, 0),
-                    new Vector3(28, 90, 20),
-                    new Vector3(28, -90, -20)
+                        new Vector3(28, 0, 0),
+                        new Vector3(28, 90, 20),
+                        new Vector3(28, -90, -20)
                 });
     }
 
@@ -72,6 +77,7 @@ public class Hero {
         sb.append("SCORE: ").append(scoreView).append("\n");
         sb.append("HP: ").append(hp).append(" / ").append(hpMax).append("\n");
         sb.append("BULLERS: ").append(currentWeapon.getCurBullets()).append(" / ").append(currentWeapon.getMaxBullets()).append("\n");
+        sb.append("MONEY: ").append(money).append("\n");
         font.draw(batch, sb, 20, 700);
     }
 
@@ -83,6 +89,20 @@ public class Hero {
 
     public void takeDamage(int amount) {
         hp -= amount;
+    }
+
+    public void consume(PowerUp p) {
+        switch (p.getType()) {
+            case MEDKIT:
+                hp += p.getPower();
+                break;
+            case MONEY:
+                money += p.getPower();
+                break;
+            case AMMOS:
+                currentWeapon.addAmmos( p.getPower()) ;
+                break;
+        }
     }
 
     public void update(float dt) {
