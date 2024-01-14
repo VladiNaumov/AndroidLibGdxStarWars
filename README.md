@@ -24,9 +24,8 @@ tools - texturepacker-gui (утилита упаковщика текстур)
 - class Assets - управление текстурами Atlas (pattern Singleton)
 - class Particle - описание частицы
 - class ParticleController - создание эффектов с помощью частиц (render() работа с эффектами цветовой гаммы )
-- class ObjectPool - pattern ObjectPool
 - class ScreenManager - Менеджер управление экранами (pattern Singleton)
-
+- class ObjectPool - pattern ObjectPool.
   B нем два массива для хранения игровых объектов, oдин массив - это для хранения активных игровых объектов, второй - для не активных игровых объектов
   Пример.  Когда игровой объект (Asteroid или Bullet) вылетает за экран он становится не активным  
   и кладется в массив не активных объектов. Потом он переводится в массив активных объектов и может использоваться в игре снова.
