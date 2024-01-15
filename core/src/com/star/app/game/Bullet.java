@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.star.app.game.helpers.Poolable;
 import com.star.app.screen.ScreenManager;
 
-/* пули  */
 public class Bullet implements Poolable {
     private GameController gc;
     private Vector2 position;

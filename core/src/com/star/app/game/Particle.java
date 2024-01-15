@@ -3,7 +3,6 @@ package com.star.app.game;
 import com.badlogic.gdx.math.Vector2;
 import com.star.app.game.helpers.Poolable;
 
-// описание частицы
 public class Particle implements Poolable {
     private Vector2 position;
     private Vector2 velocity;
