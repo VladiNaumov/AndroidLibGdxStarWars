@@ -1,6 +1,6 @@
 ### LibGdx_games,  GeekBrains:  Fansil
 
-tools - texturepacker-gui (утилита упаковщика текстур)
+tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
 
 ### Classes
 
