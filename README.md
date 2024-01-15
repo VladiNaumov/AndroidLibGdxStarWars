@@ -1,10 +1,11 @@
-### LibGdx_games,  GeekBrains:  Fansil
+### LibGdx_games,  GeekBrains:  Fansil, Tutorial: https://libgdx.com/wiki/
 
-tools - texturepacker-gui (утилита упаковщика текстур)
+tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
 
 ### Classes
 
-- class Hero - описание объекта Hero.
+- class Ship - описание объекта Ship.
+- class Hero - extends Ship + описание объекта Hero. 
 - class Background - описание объекта Background.
 - class Asteroid  описание объекта Asteroid.
 - class AsteroidController - подключаем класс Asteroid и описываем логику работы объекта Asteroid (что он должен делать).
@@ -14,7 +15,9 @@ tools - texturepacker-gui (утилита упаковщика текстур)
 - class WeaponRendering - отрисовка оружия.
 - class PowerUp - описание объекта (добавление в игру всяких нäшек таких как, пополнение жизни, монетки и т.д). 
 - class PowerUpController- подключаем класс PowerUp и описываем логику работы объекта PowerUp (что он должен делать).
-- class Shop - описание объекта Hero.
+- class Shop - описание объекта Shop.
+- class InfoText - описывает свой цвет и свое местоположение на экране.
+- class InfoController - подключаем класс PowerUp и описываем логику работы объекта PowerUp (что он должен делать).
 - class GameController - это как хаб для всех контроллеров (описываем логику взаимодействия) и потом передает на отрисовку классу WorldRenderer.
 - class WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet ....).
 
