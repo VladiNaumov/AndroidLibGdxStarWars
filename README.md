@@ -1,7 +1,5 @@
 ### LibGdx_games,  GeekBrains:  Fansil, Tutorial: https://libgdx.com/wiki/
 
-tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
-
 ### Classes
 
 - class Ship - описание объекта Ship.
@@ -47,6 +45,12 @@ screen/
 3. отдаем класс GamesController на отрисовку классу WorldRenderer.
 
  WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet....).
+
+
+### File
+- tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
+- core/ assets - assets Game.
+- StarGame_android - версия игры под систему андроид
 
 
 
