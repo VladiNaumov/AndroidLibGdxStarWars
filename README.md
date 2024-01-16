@@ -1,7 +1,5 @@
 ### LibGdx_games,  GeekBrains:  Fansil, Tutorial: https://libgdx.com/wiki/
 
-tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
-
 ### Classes
 
 - class Ship - описание объекта Ship.
@@ -40,13 +38,19 @@ screen/
   Потом он переводится в массив активных объектов и может использоваться в игре снова.
 
 
-### для подключения игровых объекта нужно:
+### для подключения игрового объекта нужно:
 
 1. создаем класс и описываем его. (пример class Hero, Star, Background, Asteroid, Bullet, Weapon...  )
 2. подключаем этот класс к контроллеру игровых объектов GamesController и описывает взаимодействие с другими объектами
 3. отдаем класс GamesController на отрисовку классу WorldRenderer.
 
  WorldRenderer: занимается рисованием (method render()) игровых объектов  (т.к Hero, Background, Bullet....).
+
+
+### File
+- tools - texturepacker-gui (утилита упаковщика текстур http://www.libgdx.ru/2015/01/texture-packer.html)
+- core/ assets - assets Game.
+- StarGame_android - версия игры под систему андроид
 
 
 
