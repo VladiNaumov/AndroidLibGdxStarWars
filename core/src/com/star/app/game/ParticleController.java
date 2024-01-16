@@ -18,7 +18,7 @@ public class ParticleController extends ObjectPool<Particle> {
         }
 
         public void takePowerUpEffect(float x, float y, PowerUp.Type type) {
-            switch (type){
+            switch (type) {
                 case MEDKIT:
                     for (int i = 0; i < 16; i++) {
                         float angle = 6.28f / 16.0f * i;
@@ -45,6 +45,36 @@ public class ParticleController extends ObjectPool<Particle> {
                                 1, 0, 0, 1,
                                 1, 0, 1, 0.5f);
                     }
+                    break;
+            }
+        }
+
+        public void bulletCollideWithAsteroid(Bullet b) {
+            setup(b.getPosition().x + MathUtils.random(-4, 4), b.getPosition().y + MathUtils.random(-4, 4),
+                    b.getVelocity().x * -0.3f + MathUtils.random(-30, 30), b.getVelocity().y * -0.3f + MathUtils.random(-30, 30),
+                    0.2f, 2.2f, 1.5f,
+                    1.0f, 1.0f, 1.0f, 1,
+                    0, 0, 1, 0);
+        }
+
+        public void createBulletTrace(OwnerType ownerType, Bullet b) {
+            switch (ownerType) {
+                case PLAYER:
+                    for (int i = 0; i < 2; i++) {
+                        setup(b.getPosition().x + MathUtils.random(-4, 4), b.getPosition().y + MathUtils.random(-4, 4),
+                                b.getVelocity().x * 0.1f + MathUtils.random(-20, 20), b.getVelocity().y * 0.1f + MathUtils.random(-20, 20),
+                                0.1f, 1.2f, 0.2f,
+                                1.0f, 0.7f, 0, 1,
+                                1, 1, 1, 0);
+                    }
+                    break;
+                case BOT:
+                    setup(b.getPosition().x, b.getPosition().y,
+                            b.getVelocity().x * 0.1f + MathUtils.random(-20, 20), b.getVelocity().y * 0.1f + MathUtils.random(-20, 20),
+                            0.13f, 2.2f, 1.5f,
+                            0.0f, 0.9f, 0, 1,
+                            0, 0.8f, 0.1f, 0);
+
                     break;
             }
         }
